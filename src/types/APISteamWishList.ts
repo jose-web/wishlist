@@ -2,12 +2,12 @@
 //
 //   import { Convert } from "./file";
 //
-//   const aPIsteamWhishList = Convert.toAPIsteamWhishList(json);
+//   const aPIsteamWishList = Convert.toAPIsteamWishList(json);
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
-export interface APIsteamWhishList {
+export interface APIsteamWishList {
     name:            string;
     capsule:         string;
     review_score:    number;
@@ -43,12 +43,12 @@ export interface Sub {
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-    public static toAPIsteamWhishList(json: string): { [key: string]: APIsteamWhishList } {
-        return cast(JSON.parse(json), m(r("APIsteamWhishList")));
+    public static toAPIsteamWishList(json: string): APIsteamWishList[] {
+        return cast(JSON.parse(json), a(r("APIsteamWishList")));
     }
 
-    public static aPIsteamWhishListToJson(value: { [key: string]: APIsteamWhishList }): string {
-        return JSON.stringify(uncast(value, m(r("APIsteamWhishList"))), null, 2);
+    public static aPIsteamWishListToJson(value: APIsteamWishList[]): string {
+        return JSON.stringify(uncast(value, a(r("APIsteamWishList"))), null, 2);
     }
 }
 
@@ -205,7 +205,7 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "APIsteamWhishList": o([
+    "APIsteamWishList": o([
         { json: "name", js: "name", typ: "" },
         { json: "capsule", js: "capsule", typ: "" },
         { json: "review_score", js: "review_score", typ: 0 },
@@ -227,7 +227,7 @@ const typeMap: any = {
         { json: "is_free_game", js: "is_free_game", typ: true },
         { json: "deck_compat", js: "deck_compat", typ: "" },
         { json: "win", js: "win", typ: 0 },
-        { json: "mac", js: "mac", typ: 0 },
+        { json: "gameId", js: "gameId", typ: "" },
     ], false),
     "Sub": o([
         { json: "packageid", js: "packageid", typ: 0 },

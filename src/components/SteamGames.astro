@@ -1,5 +1,5 @@
 ---
-import {type APIsteamWhishList } from '../types/APIsteamWhishList'
+import { type APIsteamWishList } from '../types/APISteamWishList'
 import Game from './Game.astro'
 
 const urlInstantGaming = 'https://www.instant-gaming.com/es/busquedas/?igr=josedlsr&q='
@@ -10,10 +10,11 @@ const res = await fetch('https://store.steampowered.com/wishlist/profiles/765611
 
 const data = await res.json()
 
-const arrayGames: APIsteamWhishList = Object.keys(data).map(gameId => {
+const arrayGames: APIsteamWishList[] = Object.keys(data).map(gameId => {
     return {...data[gameId], gameId}})
 .filter(game => game.priority > 0 && !game.is_free_game && game.subs[0]?.price > 0)
 .sort(function (a, b){ return a.priority - b.priority })
+
 ---
 
 <h2>Steam whishlist</h2>
