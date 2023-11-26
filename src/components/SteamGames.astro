@@ -26,29 +26,35 @@ const arrayGames: APIsteamWishList[] = Object.keys(data).map(gameId => {return {
 
 ---
 
-<h2>Steam</h2>
+<div id="steam">
+    <h2>Steam</h2>
 
-<div class="flex flex-wrap">
-{
-    arrayGames.map( game =>
-        <Game 
-            name = {game.name} 
-            discount_block = {game.subs[0].discount_block}
-            price = {game.subs[0].price / 100}
-            img = {game.capsule}
-            score = {game.review_score * 5 / 10}
-            urlSteam = {urlSteam + game.gameId}
-            urlInstantGaming = {urlInstantGaming + game.name}
-        />
-    ) 
-}
-</div>
-
-{
-    () => {
-        if (size != undefined){
-            return <a href="./steam/">Go to Steam</a>
-        }
-        return <a href="..">Go back</a>
+    <div class={
+        "grid gap-[1rem] grid-cols-1 md:grid-cols-3 "
+        + (size == undefined ? "xl:grid-cols-5": "")
+    }>
+    
+    {
+        arrayGames.map( game =>
+            <Game 
+                name = {game.name} 
+                discount_block = {game.subs[0].discount_block}
+                price = {game.subs[0].price / 100}
+                img = {game.capsule}
+                score = {game.review_score * 5 / 10}
+                urlSteam = {urlSteam + game.gameId}
+                urlInstantGaming = {urlInstantGaming + game.name}
+            />
+        ) 
     }
-}
+    </div>
+
+    {
+        () => {
+            if (size != undefined){
+                return <a href="./steam/">Go to Steam</a>
+            }
+            return <a href="..">Go back</a>
+        }
+    }
+</div>

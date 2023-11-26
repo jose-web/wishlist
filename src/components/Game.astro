@@ -12,7 +12,8 @@ interface Props {
 const { name, discount_block, price, img, score, urlSteam, urlInstantGaming } = Astro.props;
 ---
 
-<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="bg-white text-black border border-gray-200 rounded shadow 
+	dark:bg-gray-800 dark:border-gray-700 dark:text-white">
     <a href={urlInstantGaming} target="_blank">
         <img class="p-8 rounded-t-lg" src={img} alt="product image" />
     </a>
