@@ -2,14 +2,13 @@
 interface Props {
 	name: string;
 	discount_block: string;
-	price: number;
 	img: string;
 	score: number;
 	urlSteam: string;
 	urlInstantGaming: string
 }
 
-const { name, discount_block, price, img, score, urlSteam, urlInstantGaming } = Astro.props;
+const { name, discount_block, img, score, urlSteam, urlInstantGaming } = Astro.props;
 ---
 
 <div class="bg-white text-black border border-gray-200 rounded shadow 
