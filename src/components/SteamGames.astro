@@ -1,23 +1,32 @@
 ---
+interface Props {
+	size?: number
+}
+
+const { size } = Astro.props;
+
 import { type APIsteamWishList } from '../types/APISteamWishList'
 import Game from './Game.astro'
 
 const urlInstantGaming = 'https://www.instant-gaming.com/es/busquedas/?igr=josedlsr&q='
-
 const urlSteam = 'https://store.steampowered.com/app/'
 
 const res = await fetch('https://store.steampowered.com/wishlist/profiles/76561198208035909/wishlistdata')
-
 const data = await res.json()
 
-const arrayGames: APIsteamWishList[] = Object.keys(data).map(gameId => {
-    return {...data[gameId], gameId}})
-.filter(game => game.priority > 0 && !game.is_free_game && game.subs[0]?.price > 0)
+const arrayGames: APIsteamWishList[] = Object.keys(data).map(gameId => {return {...data[gameId], gameId}})
+.filter(game => {
+    let gameShowed = !(game.priority > size!)
+    let isfree = !game.is_free_game
+    let priceIsNotZero = game.subs[0]?.price > 0
+
+    return gameShowed && isfree && priceIsNotZero
+})
 .sort(function (a, b){ return a.priority - b.priority })
 
 ---
 
-<h2>Steam whishlist</h2>
+<h2>Steam</h2>
 
 <div class="flex flex-wrap">
 {
@@ -34,3 +43,12 @@ const arrayGames: APIsteamWishList[] = Object.keys(data).map(gameId => {
     ) 
 }
 </div>
+
+{
+    () => {
+        if (size != undefined){
+            return <a href="./steam/">Go to Steam</a>
+        }
+        return <a href="..">Go back</a>
+    }
+}
