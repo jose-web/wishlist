@@ -8,5 +8,6 @@ export default defineConfig({
   base: '/wishlist',
   build: {
     assets: 'assets'
-  }
+  },
+  output: 'hybrid'
 });
