@@ -13,7 +13,7 @@ const data = await res.text()
 
 var regex = /<li data-id="(.*?)".*?data-price="(.*?)".*?<img.*?src="(.*?)".*?<a.*?title="(.*?)".*?href="(.*?)"/gs;
 
-var matches = Array.from(data.matchAll(regex));
+var matches = Array.from(data.matchAll(regex)).filter((index, number) => size != undefined? number < size : true);
 
 var products = matches.map(match => ({
     'id': match[1],
@@ -26,11 +26,7 @@ var products = matches.map(match => ({
 <div id="amazon" transition:name="amazon">
     <h2 class="flex items-center mb-2"><img src="/wishlist/amazon.svg" class="h-[3rem]" /> Amazon</h2>
 
-    <div class={
-        "grid gap-[1rem] grid-cols-1 md:grid-cols-3 "
-        + (size == undefined ? "xl:grid-cols-4": "")
-    }>
-    
+    <div class="grid gap-[1rem] grid-cols-1 md:grid-cols-4">
     {
         products.map( product =>
             <Product 
@@ -41,13 +37,19 @@ var products = matches.map(match => ({
             />
         ) 
     }
-    </div>
 
     {
         () => {
             if (size != undefined){
-                return <a href="/wishlist/amazon">See all</a>
+                return <div class="flex bg-white text-black border border-gray-200 rounded shadow dark:bg-gray-800 dark:border-gray-700 dark:text-white opacity-50 hover:opacity-100 transition-opacity">
+                    <a href="/wishlist/amazon" class="p-[5rem]">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="auto" width="100%" viewBox="0 0 448 512" id="img"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path opacity="1" fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                    </a>
+                </div>
             }
-         }
+        }
     }
+    </div>
 </div>
+
+<!--  -->
