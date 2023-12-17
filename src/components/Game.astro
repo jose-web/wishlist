@@ -15,7 +15,7 @@ const { name, discount_block, img, score, urlSteam, urlInstantGaming } = Astro.p
 	dark:bg-gray-800 dark:border-gray-700 dark:text-white p-2 grid gap-[0.5rem] grid-cols-1">
     
 	<a href={urlInstantGaming} target="_blank" class="flex justify-center">
-        <img class="rounded" src={img} alt="product image" />
+        <img class="rounded" src={img} loading="lazy" alt="product image" />
     </a>
 	
 	<h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white" set:html={name}></h5>
