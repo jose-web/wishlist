@@ -14,15 +14,15 @@ const { name, price, img, url } = Astro.props;
         <img class="rounded" src={img} loading="lazy" alt="product image" />
     </a>
     <a href={url}>
-        <h5 class="text-xl font-semibold tracking-tight text-white" set:html={name}></h5>
+        <h5 class="text-xl font-semibold tracking-tight text-white h-[3.5rem] overflow-hidden" set:html={name} title={name}></h5>
     </a>
 
-    <div>{price}€</div>
+    <div>{price} €</div>
 
     <a href={url} target="_blank" class="
         bg-gray-700 font-medium rounded-lg text-center p-2 mt-auto
         flex flex-col align-center justify-center
-        text-white
+        text-white text-xs
         hover:bg-blue-700 hover:text-white
     ">Amazon</a>
 </div>
