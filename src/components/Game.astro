@@ -11,14 +11,13 @@ interface Props {
 const { name, discount_block, img, score, urlSteam, urlInstantGaming } = Astro.props;
 ---
 
-<div class="bg-white text-black border border-gray-200 rounded shadow 
-	dark:bg-gray-800 dark:border-gray-700 dark:text-white p-2 grid gap-[0.5rem] grid-cols-1">
+<div class="bg-gray-800 text-white border border-gray-700 rounded shadow p-2 grid gap-[0.5rem] grid-cols-1">
     
 	<a href={urlInstantGaming} target="_blank" class="flex justify-center">
         <img class="rounded" src={img} loading="lazy" alt="product image" />
     </a>
 	
-	<h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white" set:html={name}></h5>
+	<h5 class="text-xl font-semibold tracking-tight text-white" set:html={name}></h5>
 	
 	<div class="flex space-x-1">
 		{score >= 1 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
@@ -32,16 +31,16 @@ const { name, discount_block, img, score, urlSteam, urlInstantGaming } = Astro.p
 
 	<div class="grid grid-cols-2 gap-[0.5rem] mt-auto">
 		<a href={urlSteam} target="_blank" class="
-			bg-gray-200 font-medium rounded-lg text-center p-2
+			bg-gray-700 font-medium rounded-lg text-center p-2
 			flex flex-col align-center justify-center
-			dark:text-white dark:bg-gray-700 
+			text-white
 			hover:bg-blue-700 hover:text-white
 		">Steam</a>
 
 		<a href={urlInstantGaming} target="_blank" class="
-			bg-gray-200 font-medium rounded-lg text-center p-2
+			bg-gray-700 font-medium rounded-lg text-center p-2
 			flex flex-col align-center justify-center
-			dark:text-white dark:bg-gray-700 
+			text-white 
 			hover:bg-orange-700 hover:text-white
 		">Instant Gaming</a>
 	</div>

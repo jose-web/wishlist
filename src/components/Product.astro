@@ -9,21 +9,20 @@ interface Props {
 const { name, price, img, url } = Astro.props;
 ---
 
-<div class="bg-white text-black border border-gray-200 rounded shadow 
-	dark:bg-gray-800 dark:border-gray-700 dark:text-white p-2 grid gap-[0.5rem] grid-cols-1">
+<div class="bg-gray-800 text-white border border-gray-700 rounded shadow p-2 grid gap-[0.5rem] grid-cols-1">
     <a href={url} target="_blank" class="flex justify-center">
         <img class="rounded" src={img} loading="lazy" alt="product image" />
     </a>
     <a href={url}>
-        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white" set:html={name}></h5>
+        <h5 class="text-xl font-semibold tracking-tight text-white" set:html={name}></h5>
     </a>
 
     <div>{price}€</div>
 
     <a href={url} target="_blank" class="
-        bg-gray-200 font-medium rounded-lg text-center p-2 mt-auto
+        bg-gray-700 font-medium rounded-lg text-center p-2 mt-auto
         flex flex-col align-center justify-center
-        dark:text-white dark:bg-gray-700 
+        text-white
         hover:bg-blue-700 hover:text-white
     ">Amazon</a>
 </div>
