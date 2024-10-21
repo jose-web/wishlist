@@ -8,7 +8,7 @@ const { size } = Astro.props;
 import { type APIsteamWishList } from '../types/APISteamWishList'
 import Game from './Game.astro'
 
-const urlInstantGaming = 'https://www.instant-gaming.com/es/busquedas/?igr=josedlsr&q='
+const urlInstantGaming = 'https://www.instant-gaming.com/es/busquedas/?igr=josedlsr&type%5B%5D=steam&q='
 const urlSteam = 'https://store.steampowered.com/app/'
 
 const res = await fetch('https://store.steampowered.com/wishlist/profiles/76561198208035909/wishlistdata')
