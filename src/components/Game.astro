@@ -1,35 +1,38 @@
 ---
 interface Props {
 	name: string;
-	discount_block: string;
+	price: number;
+	discount_pct: number;
 	img: string;
-	score: number;
 	urlSteam: string;
 	urlInstantGaming: string
 }
 
-const { name, discount_block, img, score, urlSteam, urlInstantGaming } = Astro.props;
+const { name, price, discount_pct, img, urlSteam, urlInstantGaming } = Astro.props;
 ---
 
-<div class="bg-gray-800 text-white border border-gray-700 rounded shadow p-2 grid gap-[0.5rem] grid-cols-1">
+<div class="bg-gray-800 text-white border border-gray-700 rounded shadow p-2 flex flex-col gap-[0.5rem] grid-cols-1">
     
 	<a href={urlInstantGaming} target="_blank" class="flex justify-center">
         <img class="rounded" src={img} loading="lazy" alt="product image" />
     </a>
 	
-	<h5 class="text-xl font-semibold tracking-tight text-white" set:html={name}></h5>
-	
-	<div class="flex space-x-1">
-		{score >= 1 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
-		{score >= 2 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
-		{score >= 3 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
-		{score >= 4 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
-		{score >= 5 ? <img src="/wishlist/star.svg" class="h-[1rem]" />: ''} 
-	</div>
+	<h5 class="text-xl font-semibold tracking-tight text-white mb-auto" set:html={name}></h5>
 
-	<div set:html={discount_block}></div>
+	{
+		discount_pct?
+			<div class="flex gap-2 h-min">
+				<div class="bg-green-700 px-3 py-1 rounded flex items-center">{discount_pct}%</div>
+				<div class="relative">
+					<small class="line-through absolute text-xs text-gray-500">{((price/100) * 100 / (100-discount_pct)).toFixed(2)} €</small>
+					<div class="mt-3 text-md">{price/100} €</div>
+				</div>
+			</div>
+			:
+			<div class="text-md mb-auto">{price/100}€</div>
+	}
 
-	<div class="grid grid-cols-2 gap-[0.5rem] mt-auto">
+	<div class="grid grid-cols-2 gap-[0.5rem] text-xs">
 		<a href={urlSteam} target="_blank" class="
 			bg-gray-700 font-medium rounded-lg text-center p-2
 			flex flex-col align-center justify-center
