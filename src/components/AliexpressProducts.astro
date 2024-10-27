@@ -1,0 +1,74 @@
+---
+import Product from './Product.astro';
+import puppeteer from 'puppeteer';
+import * as cheerio from 'cheerio';
+
+interface Props {
+	size?: number
+}
+
+const { size } = Astro.props;
+
+const urlAliexpressWishlist = 'https://www.aliexpress.com/p/wishlist/shareReflux.html?groupId=fleqwVuzOPjIATNazpTdhZd1EXYRxfBEv8grPS8ki70%3D'
+
+const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+
+const page = await browser.newPage();
+
+await page.goto(urlAliexpressWishlist);
+
+const htmlContent = await page.content();
+
+const $ = cheerio.load(htmlContent);
+
+let products = $("[class^='AllListItem--alllistItemContainer']").map((index, element) => {
+    const img = $(element).find("[class*='AllListItem--image']").attr('style')?.replace('background-image: url("','').replace('");','');
+    const name = $(element).find("[class^='AllListItem--productNameText']").text();
+    const url = $(element).find("[class^='AllListItem--productNameText']").attr('href');
+
+    return {
+        img,
+        name,
+        url
+    }
+}).get();
+
+let allProductsCounter = products.length
+
+if (size != undefined) {
+    products = products.slice(0, size)
+}
+
+---
+<div id="aliexpress" transition:name="aliexpress">
+    <a class="flex items-center mb-2" href={urlAliexpressWishlist} target="_blank"><img src="/wishlist/aliexpress.svg" class="h-[3rem]" /> Aliexpress</a>
+
+    <div class="grid gap-[1rem] grid-cols-1 md:grid-cols-4">
+        {
+            products.map( product =>
+                <Product 
+                    name = {product.name} 
+                    price = {product.price}
+                    img = {product.img}
+                    url = {product.url}
+                />
+            ) 
+        }
+    
+        {
+            () => {
+                if (size != undefined && allProductsCounter > size){
+                    return <div class="flex bg-gray-800 text-white border border-gray-700 rounded shadow opacity-50 hover:opacity-100 transition-opacity">
+                        <a href="/wishlist/aliexpress" class="w-full flex justify-center align-center">
+                            <svg class="w-[50%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="img"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path opacity="1" fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                        </a>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
