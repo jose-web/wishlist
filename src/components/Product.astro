@@ -1,9 +1,9 @@
 ---
 interface Props {
-	name: string;
-	price: string;
-	img: string;
-	url: string;
+	name: string | undefined;
+	price: string | undefined;
+	img: string | undefined;
+	url: string | undefined;
 }
 
 const { name, price, img, url } = Astro.props;
